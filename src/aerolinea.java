@@ -28,7 +28,7 @@ public class aerolinea {
                         System.out.println("Primero debe crear un pasajero.");
                     } else {
                         pasaje = crearPasaje(scanner, pasajero);
-                        System.out.println("Pasaje creado con éxito.");
+                        System.out.println("Pasaje creado de forma exitósa.");
                     }
                     break;
 
@@ -37,12 +37,12 @@ public class aerolinea {
                     break;
 
                 case 4:
-                    System.out.println("Saliendo del programa.");
+                    System.out.println("Saliendo...");
                     System.exit(0);
                     break;
 
                 default:
-                    System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+                    System.out.println("Opcion no valida. Por favor, seleccione una opcion valida.");
                     break;
             }
         }
@@ -50,21 +50,21 @@ public class aerolinea {
 
     private static void mostrarMenu() {
         System.out.println("Menú:");
-        System.out.println("1. Crear un pasajero");
-        System.out.println("2. Crear un pasaje");
-        System.out.println("3. Mostrar información del pasaje");
+        System.out.println("1. crear un pasajero");
+        System.out.println("2. crear un pasaje");
+        System.out.println("3. Mostrar informacion del pasaje");
         System.out.println("4. Salir");
-        System.out.print("Seleccione una opción: ");
+        System.out.print("Seleccione una de las opciones: ");
     }
 
     private static Pasajero crearPasajero(Scanner scanner) {
-        System.out.print("Ingrese el rut del pasajero: ");
+        System.out.print("Ingrese su rut: ");
         String rut = scanner.nextLine();
-        System.out.print("Ingrese el nombre del pasajero: ");
+        System.out.print("Ingrese su nombre: ");
         String nombre = scanner.nextLine();
-        System.out.print("Ingrese el apellido del pasajero: ");
+        System.out.print("Ingrese su apellido: ");
         String apellido = scanner.nextLine();
-        System.out.print("Ingrese la edad del pasajero: ");
+        System.out.print("Ingrese su edad: ");
         int edad = scanner.nextInt();
         scanner.nextLine(); 
 
@@ -72,48 +72,48 @@ public class aerolinea {
     }
 
     private static Pasaje crearPasaje(Scanner scanner, Pasajero pasajero) {
-        System.out.print("Ingrese el número de vuelo: ");
+        System.out.print("Ingrese el numero de su vuelo: ");
         int numeroVuelo = scanner.nextInt();
         scanner.nextLine();
-        System.out.print("Ingrese el destino: ");
+        System.out.print("Ingrese su destino: ");
         String destino = scanner.nextLine();
-        System.out.print("Ingrese la fecha de vuelo (dd/MM/yyyy): ");
+        System.out.print("Ingrese la fecha de vuelo (dias/mes/año): ");
         String fechaStr = scanner.nextLine();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date fecha;
         try {
             fecha = sdf.parse(fechaStr);
         } catch (ParseException e) {
-            System.out.println("Fecha no válida. Formato: dd/MM/yyyy");
+            System.out.println("Fecha no valida.");
             return null;
         }
 
         double valor;
         while (true) {
-            System.out.print("Ingrese el valor del pasaje (debe ser de 10,000 o superior): ");
+            System.out.print("Ingrese el valor del pasaje ): ");
             valor = scanner.nextDouble();
             scanner.nextLine(); 
             if (Valida.esValorValido(valor)) {
                 break;
             } else {
-                System.out.println("El valor del pasaje no cumple con el requisito mínimo.");
+                System.out.println("El valor del pasaje no cumple con el requisito maximo(debe ser de 10,000 o superior).");
             }
         }
 
         int numeroAsiento;
         while (true) {
-            System.out.print("Ingrese el número de asiento (entre 1 y 90): ");
+            System.out.print("Ingrese el numero de asiento : ");
             numeroAsiento = scanner.nextInt();
             scanner.nextLine(); 
             if (Valida.esNumeroAsientoValido(numeroAsiento)) {
                 break;
             } else {
-                System.out.println("El número de asiento no cumple con los requisitos.");
+                System.out.println("El numero de asiento no cumple con los requisitos (entre 1 y 90).");
             }
         }
 
-        System.out.print("¿Trae equipaje? (Sí/No): ");
-        boolean traeEquipaje = scanner.nextLine().equalsIgnoreCase("Sí");
+        System.out.print("¿trae equipaje? (Si­/No): ");
+        boolean traeEquipaje = scanner.nextLine().equalsIgnoreCase("si­");
 
         return new Pasaje(numeroVuelo, pasajero, destino, fecha, valor, numeroAsiento, traeEquipaje);
     }
@@ -125,15 +125,21 @@ public class aerolinea {
         }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        System.out.println("Información del pasaje:");
-        System.out.println("Número de vuelo: " + pasaje.getNumeroVuelo());
+        System.out.println("Informacion del pasaje:");
+        System.out.println("Numero de vuelo: " + pasaje.getNumeroVuelo());
         System.out.println("Pasajero: " + pasaje.getPasajero().getNombre() + " " + pasaje.getPasajero().getApellido());
         System.out.println("Destino: " + pasaje.getDestino());
         System.out.println("Fecha de vuelo: " + dateFormat.format(pasaje.getFecha()));
         System.out.println("Valor del pasaje: " + pasaje.getValor());
-        System.out.println("Número de asiento: " + pasaje.getNumeroAsiento());
-        System.out.println("¿Trae equipaje?: " + (pasaje.isTraeEquipaje() ? "Sí" : "No"));
-        System.out.println("Es un pasaje vigente: " + (Valida.esFechaValida(pasaje.getFecha()) ? "Sí" : "No"));
+        System.out.println("Numero de asiento: " + pasaje.getNumeroAsiento());
+        System.out.println("¿trae equipaje?: " + (pasaje.isTraeEquipaje() ? "si­" : "No"));
+        System.out.println("Es un pasaje vigente: " + (Valida.esFechaValida(pasaje.getFecha()) ? "si­" : "No"));
         System.out.println("Valor final del pasaje: " + pasaje.calcularValorFinal());
     }
 }
+
+
+// me ayude con la parte de mostrar las fechas con el formato dd/mm/yyyy(ParseException).
+//con partes de scanner para interactuar con el teclado y usuario agregando el nextline para la continuacion. 
+// y uno que otro error q se me presentaba en los whiles x ejemplo en el catch.
+//mi ayuda fue con https://www.youtube.com/watch?v=zeuKnjQTqBE. https://chat.openai.com, https://campusvirtual.duoc.cl/ultra/courses/_521070_1/messages/edit/_1975594_1?courseId=_521070_1&offset=0&count=8.
